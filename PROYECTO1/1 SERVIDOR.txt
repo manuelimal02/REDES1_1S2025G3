@@ -1,10 +1,8 @@
-SERVIDOR
-
 conf t
 vtp version 2
 vtp domain G3_technet
 vtp mode server
-exit 
+exit
 
 conf t
 vlan 18
@@ -21,9 +19,7 @@ name Seguridad
 exit
 
 conf t
-interface f0/1
+interface g0/1
 switchport mode trunk
 switchport trunk allowed vlan 18,28,38,48
 exit
-
-

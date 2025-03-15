@@ -1,20 +1,17 @@
-CLIENTE
-
 conf t
 vtp version 2
 vtp domain G3_technet
 vtp mode client
-exit 
+exit
 
 conf t
-interface f0/1
+interface g0/1
 switchport mode trunk
 switchport trunk allowed vlan 18,28,38,48
 exit
-exit
 
 conf t
-interface range f0/2-3
+interface range g0/2-3
 switchport mode access
 switchport access vlan 18
 exit
