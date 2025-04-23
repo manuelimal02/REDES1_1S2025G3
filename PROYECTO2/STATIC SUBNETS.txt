@@ -1,0 +1,3 @@
+MS5
+router ospf 1
+redistribute static subnets
