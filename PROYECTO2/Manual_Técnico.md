@@ -1,7 +1,7 @@
 
 ## **Manual técnico**
 
-### **1. Resumen de direcciones IP y VLAN donde se justifique la elección de las máscaras de subred empleadas para las distintas subredes de las sedes y el *backbone*.**
+### **1. Resumen de direcciones IP y VLAN + Subnetting (VLSM o FLSM)**
 
 ---
 ### SUBNETING VLSM
@@ -39,6 +39,18 @@
 
 ---
 
+
+### CENTRAL
+
+| RED       | No. De Host | ID de Red    | Máscara de Subred   | Primer Host Disponible | Último Host Disponible | Dirección de broadcast |
+|-----------|-------------|--------------|----------------------|-------------------------|-------------------------|------------------------|
+| Servidor0 | 60          | 192.120.3.0  | 255.255.255.192      | 192.120.3.1             | 192.120.3.62            | 192.120.3.63           |
+| Servidor1 | 35          | 192.121.3.0  | 255.255.255.192      | 192.121.3.1             | 192.121.3.62            | 192.121.3.63           |
+| Servidor2 | 5           | 192.122.3.0  | 255.255.255.248      | 192.122.3.1             | 192.122.3.6             | 192.122.3.7            |
+
+---
+
+
 ### CUM
 
 | RED        | No. De Host | ID de Red      | Máscara de Subred   | Primer Host Disponible | Último Host Disponible | Dirección de broadcast |
@@ -64,6 +76,14 @@
 | 2           | 10.0.0.28/30   | 255.255.255.252    | 10.0.0.29               | 10.0.0.30               | 10.0.0.31              |
 | 2           | 10.0.0.32/30   | 255.255.255.252    | 10.0.0.33               | 10.0.0.34               | 10.0.0.35              |
 | 2           | 10.0.0.36/30   | 255.255.255.252    | 10.0.0.37               | 10.0.0.38               | 10.0.0.39              |
+| 2           | 10.0.0.40/30   | 255.255.255.252    | 10.0.0.41               | 10.0.0.42               | 10.0.0.43              |
+| 2           | 10.0.0.44/30   | 255.255.255.252    | 10.0.0.45               | 10.0.0.46               | 10.0.0.47              |
+| 2           | 10.0.0.48/30   | 255.255.255.252    | 10.0.0.49               | 10.0.0.50               | 10.0.0.51              |
+| 2           | 10.0.0.52/30   | 255.255.255.252    | 10.0.0.53               | 10.0.0.54               | 10.0.0.55              |
+| 2           | 10.0.0.56/30   | 255.255.255.252    | 10.0.0.57               | 10.0.0.58               | 10.0.0.59              |
+| 2           | 10.0.0.60/30   | 255.255.255.252    | 10.0.0.61               | 10.0.0.62               | 10.0.0.63              |
+| 2           | 10.0.0.64/30   | 255.255.255.252    | 10.0.0.65               | 10.0.0.66               | 10.0.0.67              |
+| 2           | 10.0.0.68/30   | 255.255.255.252    | 10.0.0.69               | 10.0.0.70               | 10.0.0.71              |
 
 ---
 
@@ -130,7 +150,66 @@
 
 ### 2. Capturas de la implementación de las topologías
 
+#### 1. CUNDECH
 
+![Topología CUNDECH](Capturas/CUNDECH.png)
+
+---
+
+#### 2. CUNOROC
+
+![Topología CUNOROC](Capturas/CUNOROC.png)
+
+---
+
+#### 3. CUNOC
+
+![Topología CUNOC](Capturas/CUNOC.png)
+
+---
+
+#### 4. CENTRAL
+
+![Topología CENTRAL](Capturas/CENTRAL.png)
+
+---
+
+#### 5. CUM
+
+![Topología CUM](Capturas/CUM.png)
+
+---
+
+#### 6. CORE/BACKBONE
+
+![Topología CUM](Capturas/CORE.png)
+
+---
+
+#### 6.1 RIP (Routing Information Protocol)
+
+![Topología RIP](Capturas/RIP.png)
+
+---
+
+#### 6.2 OSPF (Open Shortest Path First)
+
+![Topología OSPF](Capturas/OSPF.png)
+
+---
+
+#### 6.3 EIGRP (Enhanced Interior Gateway Routing Protocol)
+
+![Topología EIGRP](Capturas/EIGRP.png)
+
+---
+
+#### 6.4 Rutas Estáticas
+
+![Topología Estáticas](Capturas/ESTATICAS.png)
+
+
+    
 ---
 
 ### 3. Detalle de todos los comandos utilizados
@@ -250,7 +329,7 @@ exit
 ```
 
 ```bash
-# SW8 (segunda sección)
+# SW8
 enable
 config t
 int range fa0/3-4
@@ -1200,9 +1279,10 @@ exit
 
 ### Configuración EIGRP
 
-#### MS7
+
 
 ```bash
+# MS7
 router eigrp 100
 network 10.0.0.42 0.0.0.3
 network 10.0.0.45 0.0.0.3
@@ -1221,9 +1301,8 @@ exit
 
 ---
 
-#### R9
-
 ```bash
+# R9
 enable
 conf t
 int gi0/0
@@ -1245,9 +1324,8 @@ exit
 
 ---
 
-#### R10
-
 ```bash
+# R10
 enable
 conf t
 int gi0/0
@@ -1269,9 +1347,8 @@ exit
 
 ---
 
-#### MS8
-
 ```bash
+# MS8
 enable
 conf t
 int fa0/4
@@ -1292,9 +1369,8 @@ exit
 
 ---
 
-#### R2 — Redistribución
-
 ```bash
+# R2 — Redistribución
 enable
 conf t
 router rip
@@ -1312,9 +1388,9 @@ exit
 
 ### Configuración OSPF
 
-#### MS4
 
 ```bash
+# MS4
 enable 
 conf t
 int range fa0/1-3
@@ -1353,9 +1429,9 @@ exit
 
 ---
 
-#### MS5
 
 ```bash
+# MS5
 enable
 conf t
 int range fa0/1-3
@@ -1386,9 +1462,8 @@ exit
 
 ---
 
-#### MS7
-
 ```bash
+# MS7
 enable
 conf t
 int range fa0/1-3
@@ -1427,9 +1502,9 @@ exit
 
 ---
 
-#### MS6
 
 ```bash
+# MS6
 enable
 conf t
 int range fa0/4-6
@@ -1475,9 +1550,9 @@ exit
 
 ---
 
-#### R2
 
 ```bash
+# R2
 enable
 conf t
 int gi0/0
@@ -1503,9 +1578,9 @@ exit
 
 ---
 
-#### R3
 
 ```bash
+# R3
 conf t
 int gi0/1
 ip address 10.0.0.30 255.255.255.252
@@ -1525,9 +1600,8 @@ exit
 
 ---
 
-#### R4
-
 ```bash
+# R4
 enable
 conf t
 int gi0/0
@@ -1546,9 +1620,8 @@ exit
 
 ---
 
-#### R5
-
 ```bash
+# R5
 enable
 conf t
 int gi0/0
@@ -1566,3 +1639,12 @@ exit
 ```
 
 ---
+
+### Redistribucion de Rutas Estáticas
+
+```bash
+# MS5
+router ospf 1
+redistribute static subnets
+```
+
